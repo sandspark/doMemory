@@ -1,0 +1,5 @@
+CREATE TABLE user( id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT , password TEXT , lastlogindatetime text)
+
+CREATE TABLE knowladgedb(Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,   name TEXT ,   type TEXT ,   dataformat TEXT  )
+
+CREATE INDEX PointAddress ON user(name COLLATE BINARY ASC)
