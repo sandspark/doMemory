@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBeisong));
             this.spcMainForm = new System.Windows.Forms.SplitContainer();
-            this.btnLoadDb = new System.Windows.Forms.Button();
+            this.buttonSubmitQuest = new System.Windows.Forms.Button();
+            this.buttonStartQuest = new System.Windows.Forms.Button();
+            this.labelQuestionInfo = new System.Windows.Forms.Label();
             this.spcLeftPanel = new System.Windows.Forms.SplitContainer();
             this.labelInfo = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
+            this.btnLoadDb = new System.Windows.Forms.Button();
             this.splitContainerDbArea = new System.Windows.Forms.SplitContainer();
+            this.textBoxQuestType = new System.Windows.Forms.TextBox();
             this.labelQuestType = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonAllTest = new System.Windows.Forms.RadioButton();
@@ -46,6 +51,9 @@
             this.textBoxDbName = new System.Windows.Forms.TextBox();
             this.tabCMain = new System.Windows.Forms.TabControl();
             this.tabPageLianxi = new System.Windows.Forms.TabPage();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxScore_right = new System.Windows.Forms.TextBox();
+            this.labelQuestIndexInfo = new System.Windows.Forms.Label();
             this.buttonLast = new System.Windows.Forms.Button();
             this.buttonFrist = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -59,10 +67,20 @@
             this.buttonNext = new System.Windows.Forms.Button();
             this.textBoxUserAnswer = new System.Windows.Forms.TextBox();
             this.labelQuestInfo = new System.Windows.Forms.Label();
-            this.labelQuestionInfo = new System.Windows.Forms.Label();
             this.tabPageDb = new System.Windows.Forms.TabPage();
             this.textBoxDb = new System.Windows.Forms.TextBox();
-            this.textBoxQuestType = new System.Windows.Forms.TextBox();
+            this.timerLoadDb = new System.Windows.Forms.Timer(this.components);
+            this.timerRefreshQuestInfo = new System.Windows.Forms.Timer(this.components);
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxQuestIndex = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxUserRightNum = new System.Windows.Forms.TextBox();
+            this.textBoxUserWrongNum = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxUserAallGetScore = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxQuestAllRightScore = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.spcMainForm)).BeginInit();
             this.spcMainForm.Panel1.SuspendLayout();
             this.spcMainForm.Panel2.SuspendLayout();
@@ -91,23 +109,45 @@
             // 
             // spcMainForm.Panel1
             // 
-            this.spcMainForm.Panel1.Controls.Add(this.btnLoadDb);
+            this.spcMainForm.Panel1.Controls.Add(this.buttonSubmitQuest);
+            this.spcMainForm.Panel1.Controls.Add(this.buttonStartQuest);
+            this.spcMainForm.Panel1.Controls.Add(this.labelQuestionInfo);
             // 
             // spcMainForm.Panel2
             // 
             this.spcMainForm.Panel2.Controls.Add(this.spcLeftPanel);
             this.spcMainForm.Size = new System.Drawing.Size(919, 553);
-            this.spcMainForm.SplitterDistance = 41;
+            this.spcMainForm.SplitterDistance = 65;
             this.spcMainForm.TabIndex = 0;
             // 
-            // btnLoadDb
+            // buttonSubmitQuest
             // 
-            this.btnLoadDb.Location = new System.Drawing.Point(3, 10);
-            this.btnLoadDb.Name = "btnLoadDb";
-            this.btnLoadDb.Size = new System.Drawing.Size(75, 23);
-            this.btnLoadDb.TabIndex = 0;
-            this.btnLoadDb.Text = "载入数据库";
-            this.btnLoadDb.UseVisualStyleBackColor = true;
+            this.buttonSubmitQuest.Location = new System.Drawing.Point(91, 10);
+            this.buttonSubmitQuest.Name = "buttonSubmitQuest";
+            this.buttonSubmitQuest.Size = new System.Drawing.Size(75, 23);
+            this.buttonSubmitQuest.TabIndex = 2;
+            this.buttonSubmitQuest.Text = "提交";
+            this.buttonSubmitQuest.UseVisualStyleBackColor = true;
+            this.buttonSubmitQuest.Click += new System.EventHandler(this.buttonSubmitQuest_Click);
+            // 
+            // buttonStartQuest
+            // 
+            this.buttonStartQuest.Location = new System.Drawing.Point(10, 10);
+            this.buttonStartQuest.Name = "buttonStartQuest";
+            this.buttonStartQuest.Size = new System.Drawing.Size(75, 23);
+            this.buttonStartQuest.TabIndex = 1;
+            this.buttonStartQuest.Text = "开始考试";
+            this.buttonStartQuest.UseVisualStyleBackColor = true;
+            this.buttonStartQuest.Click += new System.EventHandler(this.buttonStartQuest_Click);
+            // 
+            // labelQuestionInfo
+            // 
+            this.labelQuestionInfo.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelQuestionInfo.Location = new System.Drawing.Point(171, 0);
+            this.labelQuestionInfo.Name = "labelQuestionInfo";
+            this.labelQuestionInfo.Size = new System.Drawing.Size(744, 61);
+            this.labelQuestionInfo.TabIndex = 0;
+            this.labelQuestionInfo.Text = "考试信息";
             // 
             // spcLeftPanel
             // 
@@ -120,31 +160,42 @@
             // 
             this.spcLeftPanel.Panel1.Controls.Add(this.labelInfo);
             this.spcLeftPanel.Panel1.Controls.Add(this.btnStart);
+            this.spcLeftPanel.Panel1.Controls.Add(this.btnLoadDb);
             // 
             // spcLeftPanel.Panel2
             // 
             this.spcLeftPanel.Panel2.Controls.Add(this.splitContainerDbArea);
-            this.spcLeftPanel.Size = new System.Drawing.Size(919, 508);
+            this.spcLeftPanel.Size = new System.Drawing.Size(919, 484);
             this.spcLeftPanel.SplitterDistance = 153;
             this.spcLeftPanel.TabIndex = 1;
             // 
             // labelInfo
             // 
-            this.labelInfo.Location = new System.Drawing.Point(3, 36);
+            this.labelInfo.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.labelInfo.Location = new System.Drawing.Point(0, 89);
             this.labelInfo.Name = "labelInfo";
-            this.labelInfo.Size = new System.Drawing.Size(100, 461);
+            this.labelInfo.Size = new System.Drawing.Size(149, 391);
             this.labelInfo.TabIndex = 1;
             this.labelInfo.Text = "信息";
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(3, 8);
+            this.btnStart.Location = new System.Drawing.Point(2, 49);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.Size = new System.Drawing.Size(143, 23);
             this.btnStart.TabIndex = 0;
-            this.btnStart.Text = "开始";
+            this.btnStart.Text = "开始读取数据库到内存";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // btnLoadDb
+            // 
+            this.btnLoadDb.Location = new System.Drawing.Point(3, 21);
+            this.btnLoadDb.Name = "btnLoadDb";
+            this.btnLoadDb.Size = new System.Drawing.Size(143, 23);
+            this.btnLoadDb.TabIndex = 0;
+            this.btnLoadDb.Text = "载入数据库";
+            this.btnLoadDb.UseVisualStyleBackColor = true;
             // 
             // splitContainerDbArea
             // 
@@ -167,9 +218,17 @@
             // splitContainerDbArea.Panel2
             // 
             this.splitContainerDbArea.Panel2.Controls.Add(this.tabCMain);
-            this.splitContainerDbArea.Size = new System.Drawing.Size(762, 508);
-            this.splitContainerDbArea.SplitterDistance = 90;
+            this.splitContainerDbArea.Size = new System.Drawing.Size(762, 484);
+            this.splitContainerDbArea.SplitterDistance = 46;
             this.splitContainerDbArea.TabIndex = 1;
+            // 
+            // textBoxQuestType
+            // 
+            this.textBoxQuestType.Location = new System.Drawing.Point(674, 21);
+            this.textBoxQuestType.Name = "textBoxQuestType";
+            this.textBoxQuestType.Size = new System.Drawing.Size(74, 21);
+            this.textBoxQuestType.TabIndex = 6;
+            this.textBoxQuestType.Text = "全部练习";
             // 
             // labelQuestType
             // 
@@ -269,11 +328,24 @@
             this.tabCMain.Location = new System.Drawing.Point(0, 0);
             this.tabCMain.Name = "tabCMain";
             this.tabCMain.SelectedIndex = 0;
-            this.tabCMain.Size = new System.Drawing.Size(758, 410);
+            this.tabCMain.Size = new System.Drawing.Size(758, 430);
             this.tabCMain.TabIndex = 0;
             // 
             // tabPageLianxi
             // 
+            this.tabPageLianxi.Controls.Add(this.textBoxQuestAllRightScore);
+            this.tabPageLianxi.Controls.Add(this.label12);
+            this.tabPageLianxi.Controls.Add(this.textBoxUserAallGetScore);
+            this.tabPageLianxi.Controls.Add(this.label11);
+            this.tabPageLianxi.Controls.Add(this.textBoxUserWrongNum);
+            this.tabPageLianxi.Controls.Add(this.label10);
+            this.tabPageLianxi.Controls.Add(this.textBoxUserRightNum);
+            this.tabPageLianxi.Controls.Add(this.label9);
+            this.tabPageLianxi.Controls.Add(this.textBoxQuestIndex);
+            this.tabPageLianxi.Controls.Add(this.label8);
+            this.tabPageLianxi.Controls.Add(this.label3);
+            this.tabPageLianxi.Controls.Add(this.textBoxScore_right);
+            this.tabPageLianxi.Controls.Add(this.labelQuestIndexInfo);
             this.tabPageLianxi.Controls.Add(this.buttonLast);
             this.tabPageLianxi.Controls.Add(this.buttonFrist);
             this.tabPageLianxi.Controls.Add(this.label7);
@@ -287,18 +359,43 @@
             this.tabPageLianxi.Controls.Add(this.buttonNext);
             this.tabPageLianxi.Controls.Add(this.textBoxUserAnswer);
             this.tabPageLianxi.Controls.Add(this.labelQuestInfo);
-            this.tabPageLianxi.Controls.Add(this.labelQuestionInfo);
             this.tabPageLianxi.Location = new System.Drawing.Point(4, 22);
             this.tabPageLianxi.Name = "tabPageLianxi";
             this.tabPageLianxi.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLianxi.Size = new System.Drawing.Size(750, 384);
+            this.tabPageLianxi.Size = new System.Drawing.Size(750, 404);
             this.tabPageLianxi.TabIndex = 0;
             this.tabPageLianxi.Text = "试题";
             this.tabPageLianxi.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(199, 72);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "本题分值";
+            // 
+            // textBoxScore_right
+            // 
+            this.textBoxScore_right.Location = new System.Drawing.Point(258, 69);
+            this.textBoxScore_right.Name = "textBoxScore_right";
+            this.textBoxScore_right.Size = new System.Drawing.Size(123, 21);
+            this.textBoxScore_right.TabIndex = 15;
+            this.textBoxScore_right.Text = "本题分值";
+            // 
+            // labelQuestIndexInfo
+            // 
+            this.labelQuestIndexInfo.AutoSize = true;
+            this.labelQuestIndexInfo.Location = new System.Drawing.Point(12, 20);
+            this.labelQuestIndexInfo.Name = "labelQuestIndexInfo";
+            this.labelQuestIndexInfo.Size = new System.Drawing.Size(77, 12);
+            this.labelQuestIndexInfo.TabIndex = 14;
+            this.labelQuestIndexInfo.Text = "试题索引信息";
+            // 
             // buttonLast
             // 
-            this.buttonLast.Location = new System.Drawing.Point(264, 221);
+            this.buttonLast.Location = new System.Drawing.Point(306, 280);
             this.buttonLast.Name = "buttonLast";
             this.buttonLast.Size = new System.Drawing.Size(75, 23);
             this.buttonLast.TabIndex = 13;
@@ -308,7 +405,7 @@
             // 
             // buttonFrist
             // 
-            this.buttonFrist.Location = new System.Drawing.Point(18, 221);
+            this.buttonFrist.Location = new System.Drawing.Point(18, 280);
             this.buttonFrist.Name = "buttonFrist";
             this.buttonFrist.Size = new System.Drawing.Size(75, 23);
             this.buttonFrist.TabIndex = 12;
@@ -319,7 +416,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(222, 200);
+            this.label7.Location = new System.Drawing.Point(225, 219);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 12);
             this.label7.TabIndex = 11;
@@ -327,16 +424,16 @@
             // 
             // textBoxQuestUserScore
             // 
-            this.textBoxQuestUserScore.Location = new System.Drawing.Point(281, 194);
+            this.textBoxQuestUserScore.Location = new System.Drawing.Point(284, 213);
             this.textBoxQuestUserScore.Name = "textBoxQuestUserScore";
-            this.textBoxQuestUserScore.Size = new System.Drawing.Size(82, 21);
+            this.textBoxQuestUserScore.Size = new System.Drawing.Size(97, 21);
             this.textBoxQuestUserScore.TabIndex = 10;
             this.textBoxQuestUserScore.Text = "本题得分";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 197);
+            this.label6.Location = new System.Drawing.Point(13, 219);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 9;
@@ -344,7 +441,7 @@
             // 
             // textBoxIsUserAnswerRight
             // 
-            this.textBoxIsUserAnswerRight.Location = new System.Drawing.Point(89, 194);
+            this.textBoxIsUserAnswerRight.Location = new System.Drawing.Point(96, 216);
             this.textBoxIsUserAnswerRight.Name = "textBoxIsUserAnswerRight";
             this.textBoxIsUserAnswerRight.Size = new System.Drawing.Size(123, 21);
             this.textBoxIsUserAnswerRight.TabIndex = 8;
@@ -353,7 +450,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 167);
+            this.label5.Location = new System.Drawing.Point(16, 193);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(53, 12);
             this.label5.TabIndex = 7;
@@ -361,16 +458,16 @@
             // 
             // textBoxRightAnswer
             // 
-            this.textBoxRightAnswer.Location = new System.Drawing.Point(87, 164);
+            this.textBoxRightAnswer.Location = new System.Drawing.Point(97, 190);
             this.textBoxRightAnswer.Name = "textBoxRightAnswer";
-            this.textBoxRightAnswer.Size = new System.Drawing.Size(276, 21);
+            this.textBoxRightAnswer.Size = new System.Drawing.Size(284, 21);
             this.textBoxRightAnswer.TabIndex = 6;
             this.textBoxRightAnswer.Text = "正确回答";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 140);
+            this.label4.Location = new System.Drawing.Point(16, 166);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 5;
@@ -378,7 +475,7 @@
             // 
             // buttonPervi
             // 
-            this.buttonPervi.Location = new System.Drawing.Point(102, 221);
+            this.buttonPervi.Location = new System.Drawing.Point(111, 280);
             this.buttonPervi.Name = "buttonPervi";
             this.buttonPervi.Size = new System.Drawing.Size(75, 23);
             this.buttonPervi.TabIndex = 4;
@@ -388,7 +485,7 @@
             // 
             // buttonNext
             // 
-            this.buttonNext.Location = new System.Drawing.Point(183, 221);
+            this.buttonNext.Location = new System.Drawing.Point(203, 280);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(75, 23);
             this.buttonNext.TabIndex = 3;
@@ -398,29 +495,21 @@
             // 
             // textBoxUserAnswer
             // 
-            this.textBoxUserAnswer.Location = new System.Drawing.Point(87, 137);
+            this.textBoxUserAnswer.Location = new System.Drawing.Point(97, 163);
             this.textBoxUserAnswer.Name = "textBoxUserAnswer";
-            this.textBoxUserAnswer.Size = new System.Drawing.Size(276, 21);
+            this.textBoxUserAnswer.Size = new System.Drawing.Size(284, 21);
             this.textBoxUserAnswer.TabIndex = 2;
             this.textBoxUserAnswer.Text = "用户回答";
+            this.textBoxUserAnswer.Leave += new System.EventHandler(this.textBoxUserAnswer_Leave);
             // 
             // labelQuestInfo
             // 
             this.labelQuestInfo.AutoSize = true;
-            this.labelQuestInfo.Location = new System.Drawing.Point(4, 45);
+            this.labelQuestInfo.Location = new System.Drawing.Point(16, 95);
             this.labelQuestInfo.Name = "labelQuestInfo";
             this.labelQuestInfo.Size = new System.Drawing.Size(89, 12);
             this.labelQuestInfo.TabIndex = 1;
             this.labelQuestInfo.Text = "labelQuestInfo";
-            // 
-            // labelQuestionInfo
-            // 
-            this.labelQuestionInfo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelQuestionInfo.Location = new System.Drawing.Point(3, 3);
-            this.labelQuestionInfo.Name = "labelQuestionInfo";
-            this.labelQuestionInfo.Size = new System.Drawing.Size(744, 23);
-            this.labelQuestionInfo.TabIndex = 0;
-            this.labelQuestionInfo.Text = "试题信息";
             // 
             // tabPageDb
             // 
@@ -428,7 +517,7 @@
             this.tabPageDb.Location = new System.Drawing.Point(4, 22);
             this.tabPageDb.Name = "tabPageDb";
             this.tabPageDb.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDb.Size = new System.Drawing.Size(750, 384);
+            this.tabPageDb.Size = new System.Drawing.Size(750, 404);
             this.tabPageDb.TabIndex = 2;
             this.tabPageDb.Text = "数据库";
             this.tabPageDb.UseVisualStyleBackColor = true;
@@ -441,17 +530,106 @@
             this.textBoxDb.Name = "textBoxDb";
             this.textBoxDb.ReadOnly = true;
             this.textBoxDb.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDb.Size = new System.Drawing.Size(744, 378);
+            this.textBoxDb.Size = new System.Drawing.Size(744, 398);
             this.textBoxDb.TabIndex = 0;
             this.textBoxDb.Text = resources.GetString("textBoxDb.Text");
             // 
-            // textBoxQuestType
+            // timerLoadDb
             // 
-            this.textBoxQuestType.Location = new System.Drawing.Point(674, 21);
-            this.textBoxQuestType.Name = "textBoxQuestType";
-            this.textBoxQuestType.Size = new System.Drawing.Size(74, 21);
-            this.textBoxQuestType.TabIndex = 6;
-            this.textBoxQuestType.Text = "全部练习";
+            this.timerLoadDb.Interval = 1000;
+            this.timerLoadDb.Tick += new System.EventHandler(this.timerLoadDb_Tick);
+            // 
+            // timerRefreshQuestInfo
+            // 
+            this.timerRefreshQuestInfo.Interval = 1000;
+            this.timerRefreshQuestInfo.Tick += new System.EventHandler(this.timerRefreshQuestInfo_Tick);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(16, 77);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.TabIndex = 17;
+            this.label8.Text = "本题序号";
+            // 
+            // textBoxQuestIndex
+            // 
+            this.textBoxQuestIndex.Location = new System.Drawing.Point(96, 69);
+            this.textBoxQuestIndex.Name = "textBoxQuestIndex";
+            this.textBoxQuestIndex.Size = new System.Drawing.Size(60, 21);
+            this.textBoxQuestIndex.TabIndex = 18;
+            this.textBoxQuestIndex.Text = "本题序号";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 45);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 12);
+            this.label9.TabIndex = 19;
+            this.label9.Text = "正确题数";
+            // 
+            // textBoxUserRightNum
+            // 
+            this.textBoxUserRightNum.Location = new System.Drawing.Point(74, 42);
+            this.textBoxUserRightNum.Name = "textBoxUserRightNum";
+            this.textBoxUserRightNum.Size = new System.Drawing.Size(49, 21);
+            this.textBoxUserRightNum.TabIndex = 20;
+            this.textBoxUserRightNum.Text = "试题正确数";
+            // 
+            // textBoxUserWrongNum
+            // 
+            this.textBoxUserWrongNum.Location = new System.Drawing.Point(185, 42);
+            this.textBoxUserWrongNum.Name = "textBoxUserWrongNum";
+            this.textBoxUserWrongNum.Size = new System.Drawing.Size(67, 21);
+            this.textBoxUserWrongNum.TabIndex = 22;
+            this.textBoxUserWrongNum.Text = "错误题数";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(134, 45);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(53, 12);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "错误题数";
+            // 
+            // textBoxUserAallGetScore
+            // 
+            this.textBoxUserAallGetScore.Location = new System.Drawing.Point(306, 42);
+            this.textBoxUserAallGetScore.Name = "textBoxUserAallGetScore";
+            this.textBoxUserAallGetScore.Size = new System.Drawing.Size(75, 21);
+            this.textBoxUserAallGetScore.TabIndex = 24;
+            this.textBoxUserAallGetScore.Text = "用户得分";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(255, 45);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(53, 12);
+            this.label11.TabIndex = 23;
+            this.label11.Tag = "wode";
+            this.label11.Text = "最后得分";
+            // 
+            // textBoxQuestAllRightScore
+            // 
+            this.textBoxQuestAllRightScore.Location = new System.Drawing.Point(306, 14);
+            this.textBoxQuestAllRightScore.Name = "textBoxQuestAllRightScore";
+            this.textBoxQuestAllRightScore.Size = new System.Drawing.Size(75, 21);
+            this.textBoxQuestAllRightScore.TabIndex = 26;
+            this.textBoxQuestAllRightScore.Text = "试卷总分数";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(243, 17);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(65, 12);
+            this.label12.TabIndex = 25;
+            this.label12.Tag = "wode";
+            this.label12.Text = "试卷总分数";
             // 
             // frmBeisong
             // 
@@ -461,6 +639,8 @@
             this.Controls.Add(this.spcMainForm);
             this.Name = "frmBeisong";
             this.Text = "背诵";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmBeisong_FormClosed);
+            this.Load += new System.EventHandler(this.frmBeisong_Load);
             this.spcMainForm.Panel1.ResumeLayout(false);
             this.spcMainForm.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcMainForm)).EndInit();
@@ -521,6 +701,23 @@
         private System.Windows.Forms.Button buttonLast;
         private System.Windows.Forms.Button buttonFrist;
         private System.Windows.Forms.TextBox textBoxQuestType;
+        private System.Windows.Forms.Timer timerLoadDb;
+        private System.Windows.Forms.Timer timerRefreshQuestInfo;
+        private System.Windows.Forms.Button buttonSubmitQuest;
+        private System.Windows.Forms.Button buttonStartQuest;
+        private System.Windows.Forms.Label labelQuestIndexInfo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBoxScore_right;
+        private System.Windows.Forms.TextBox textBoxQuestIndex;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxUserWrongNum;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBoxUserRightNum;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxUserAallGetScore;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxQuestAllRightScore;
+        private System.Windows.Forms.Label label12;
     }
 }
 

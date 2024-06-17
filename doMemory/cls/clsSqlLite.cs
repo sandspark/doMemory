@@ -5,12 +5,16 @@ using System.Data.Common;
 using System.Data.SQLite;
 using System.IO;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace doMemory.cls
 {
         public class DBHelperSQLite
         {
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]  
+            public static extern bool MoveFileEx(string lpExistingFileName, string lpNewFileName, int dwFlags);
+            public const int MOVEFILE_DELAY_UNTIL_REBOOT = 0x4;
             public static string dbname = "domemory.db";
             public static string dataBaseFileName = AppDomain.CurrentDomain.BaseDirectory + "//db//"+dbname;
             public static string connectionString = @"Data Source=" + dataBaseFileName + "; Pooling=true;FailIfMissing=false;";
@@ -19,6 +23,14 @@ namespace doMemory.cls
             {
 
             }
+
+            public static void DropDb()
+            {
+                if (File.Exists(dataBaseFileName))
+                {
+                    MoveFileEx(dataBaseFileName, null, MOVEFILE_DELAY_UNTIL_REBOOT);               
+                }
+        }
 
             public static void ExistsDataBase()
             {
@@ -33,9 +45,23 @@ namespace doMemory.cls
                     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     username TEXT ,
                     password TEXT ,
-                    lastlogindatetime text
+                    lastlogindatetime TEXT
                     )");
                 }
+
+                ExecuteSql(string.Format(
+                        "insert into user (username,password,lastlogindatetime) values ('{0}','{1}','{2}')",
+                        "sandspark",
+                        "11111111",
+                        DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                        ));
+
+                ExecuteSql(string.Format(
+                    "insert into user (username,password,lastlogindatetime) values ('{0}','{1}','{2}')",
+                    "用户",
+                    "000000",
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                    ));
 
                 if (!ExixtsTable("knowladgedb"))
                 {
@@ -43,11 +69,40 @@ namespace doMemory.cls
                       Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                       name TEXT ,
                       type TEXT ,
-                      dataformat TEXT 
+                      dataformat TEXT ,
+                      datetime TEXT
+                      
                     )");
 
                 }
+
+            if (!ExixtsTable("knowladgedb_detail"))
+            {
+                ExecuteSql(@"CREATE TABLE knowladgedb_detail(
+                      Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                      knowladgedb_id TEXT ,
+                      key TEXT ,
+                      val TEXT
+                    )"
+                );
+
             }
+
+
+            if (!ExixtsTable("log"))
+                {
+                    ExecuteSql(@"CREATE TABLE log(
+                      Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                      datetime TEXT ,
+                      log TEXT 
+                        )"
+                    );
+
+                }
+
+
+
+        }
 
             #region 公用方法
 

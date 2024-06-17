@@ -16,6 +16,7 @@ namespace doMemory
         public frmBeisong frmBeisong = new frmBeisong();
         public frmMain frmMain = new frmMain();
         public frmMaintainDb frmMaintain = new frmMaintainDb();
+        public DBHelperSQLite dbtools = new DBHelperSQLite();
 
         public frmLogin()
         {
@@ -33,11 +34,16 @@ namespace doMemory
             string password = textBoxPassword.Text;
             DBHelperSQLite.ExistsDataBase();
             if (username == "sandspark" && password == "11111111")
-            { 
+            {
+                //登陆成功 载入主窗体
                 frmMain = new frmMain();
                 frmMain.Show();
                 frmMain.frmLogin = this;
                 this.Hide();
+            }
+            else
+            {
+                //登陆失败
             }
         }
 

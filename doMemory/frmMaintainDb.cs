@@ -1,4 +1,5 @@
-﻿using System;
+﻿using doMemory.cls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,14 @@ namespace doMemory
         private void frmMaintainDb_FormClosed(object sender, FormClosedEventArgs e)
         {
             frmlogin.frmMain.Show();
+        }
+
+        private void buttonResetToFactory_Click(object sender, EventArgs e)
+        {
+            DBHelperSQLite.DropDb();
+            DBHelperSQLite.ExistsDataBase();
+            this.Hide();
+            frmlogin.Show();
         }
     }
 }

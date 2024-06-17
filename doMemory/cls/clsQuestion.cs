@@ -64,6 +64,8 @@ namespace doMemory.cls
         public int socre_get = 0;
 
         public bool isright = false;
+
+        public bool userViewed = false;
     }
     public class clsQuestion
     {
@@ -72,6 +74,15 @@ namespace doMemory.cls
         public clsKnowladgeDb db = null;
         public Dictionary<string, QuestionCell> QuestionDic = new Dictionary<string, QuestionCell>();
         public int RandomBlankMaxNum = 3;
+        public DateTime startdatetime = DateTime.Now;
+        public DateTime enddatetime = DateTime.Now;
+        public int questtimelengthSecond = 600;
+        public int timeusedSenond = 0;
+        public int timeleftSecond = 0;
+        public string username = "";
+        
+        public int allrightScore = 0, allgetscore = 0, QuestRightNum = 0, QuestWrongNum = 0;
+        
         public clsQuestion(clsKnowladgeDb tdb, string ttype) {
             db = tdb;
             type = ttype;
@@ -115,6 +126,7 @@ namespace doMemory.cls
                         break;
                 }
                 questnum = 10;
+                questtimelengthSecond = questnum * 20;
                 //随机生成试题
                 QuestionDic.Clear();
                 usedQuestionkey.Clear();
@@ -135,7 +147,7 @@ namespace doMemory.cls
                     QuestionCell qc = new QuestionCell();
                     qc.key = questKey;
                     qc.type = questType;
-                    qc.score_right = 1;
+                    qc.score_right = 10;
 
                     /// 问题种类 ： 
                     ///     0 根据val提示 默写key，
@@ -191,7 +203,7 @@ namespace doMemory.cls
                                     tmpQuestKey = tmpQuestKey.Substring(0,randompos)+"_"+ tmpQuestKey.Substring(randompos+1);
                                     qc.RightAnswer[i] = tmpQuestKey.Substring(randompos,1);
                                 }
-                                qc.quest = string.Format("填空题： {0} 为 {1} ，{2} 为 {3}", db.dataformat[0], tmpQuestKey,tmpQuestKey, db.dataformat[0], tmpQuestVal);
+                                qc.quest = string.Format("填空题： {0} 为 {1}  {2} 为 {3}", db.dataformat[0], tmpQuestKey,tmpQuestKey, db.dataformat[0], tmpQuestVal);
                             }
                             else
                             {
@@ -208,7 +220,7 @@ namespace doMemory.cls
                                     tmpQuestVal = tmpQuestVal.Substring(0, randompos) + "_" + tmpQuestVal.Substring(randompos + 1);
                                     qc.RightAnswer[i] = tmpQuestVal.Substring(randompos, 1);
                                 }
-                                qc.quest = string.Format("填空题： {0} 为 {1} ，{2} 为 {3}", db.dataformat[0], tmpQuestKey, tmpQuestKey, db.dataformat[0], tmpQuestVal);
+                                qc.quest = string.Format("填空题： {0} 为 {1}  {2} 为 {3}", db.dataformat[0], tmpQuestKey, tmpQuestKey, db.dataformat[0], tmpQuestVal);
                             }
 
                             break;
